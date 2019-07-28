@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Тег BODY</title>
+		<meta charset="utf-8">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript">
+
+		function get_user()
+		{
+	        $.get(
+				  "http://localhost:5000/todo/api/v1.0/result/90",
+				  onAjaxSuccess
+			);				 
+			function onAjaxSuccess(response)
+			{
+			  // Здесь мы получаем данные, отправленные сервером и выводим их на экран.
+			  //alert(response['pulse']);
+			  document.getElementById("pulse").innerHTML = response['pulse'];
+			  document.getElementById("pressure_up").innerHTML = response['pressure_up'];
+			  document.getElementById("pressure_dn").innerHTML = response['pressure_dn'];
+			  document.getElementById("height").innerHTML = response['height'];
+			  document.getElementById("width").innerHTML = response['width'];
+
+			  document.getElementById("pulse_n").innerHTML = response['pulse_n'];
+			  document.getElementById("pressure_up_n").innerHTML = response['pressure_up_n'];
+			  document.getElementById("pressure_dn_n").innerHTML = response['pressure_dn_n'];
+			  document.getElementById("height_n").innerHTML = response['height_n'];
+			  document.getElementById("width_n").innerHTML = response['width_n'];
+
+			  document.getElementById("pulse_ot").innerHTML = response['pulse_ot'];
+			  document.getElementById("pressure_ot").innerHTML = response['pressure_ot'];
+			  document.getElementById("height_ot").innerHTML = response['height_ot'];
+			  document.getElementById("width_ot").innerHTML = response['width_ot'];
+			}   
+	    }
+	    get_user()
+		</script>
+	</head>
+ <body>
+ 	<div class="container">
+ 		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Параметр</th>
+		      <th scope="col">Значение</th>
+		      <th scope="col">Норма</th>
+		      <th scope="col">Отклонение от нормы</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">Пульс</th>
+		      <td><span id='pulse'></span></td>
+		      <td><span id='pulse_n'></span></td>
+		      <td><span id='pulse_ot'></span></td>
+		    </tr>
+		    <tr>
+		      <th scope="row">Давление:</th>
+		      <td><span id='pressure_up'></span>/<span id='pressure_dn'></span></td>
+		      <td><span id='pressure_up_n'></span>/<span id='pressure_dn_n'></span></td>
+		      <td><span id='pressure_ot'></span></td>
+		    </tr>
+		    <tr>
+		      <th scope="row">Рост:</th>
+		      <td><span id='height'></span></td>
+		      <td><span id='height_n'></span></td>
+		      <td><span id='height_ot'></span></td>
+		    </tr>
+		    <tr>
+		      <th scope="row">Вес:</th>
+		      <td><span id='width'></span></td>
+		      <td><span id='width_n'></span></td>
+		      <td><span id='width_ot'></span></td>
+		    </tr>
+		  </tbody>
+		</table>
+		<div class="row">
+	        <div>
+	            <h4>Рекомендации</h4>
+	            <p>У вас повышенный пульс. Обратитесь к врачу</p>
+	        </div>
+	    </div>
+			<div id="ex1"></div>
+		</div>
+ </body>
+</html>
+

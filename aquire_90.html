@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Тег BODY</title>
+		<meta charset="utf-8">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript">
+
+		var aquire_one = 0.5 * 1000;
+		var aquire_all = 10 * 1000;
+
+		var counter = 0;
+
+		setInterval(get_user, aquire_one);
+
+		function get_user()
+		{
+	        $.get(
+				  "http://localhost:5000/todo/api/v1.0/acquire/90",
+				  onAjaxSuccess
+			);				 
+			function onAjaxSuccess(response)
+			{
+			  // Здесь мы получаем данные, отправленные сервером и выводим их на экран.
+			  //alert(response['pulse']);
+			  document.getElementById("pulse").innerHTML = response['pulse'];
+			  document.getElementById("pressure_up").innerHTML = response['pressure_up'];
+			  document.getElementById("pressure_dn").innerHTML = response['pressure_dn'];
+			}   
+			counter += 1;
+
+			if(counter >= aquire_all/aquire_one){
+				window.location.href = "result_90.html";
+			}
+			document.getElementById("ex1").innerHTML = "До конца замера осталось " + String(Math.floor((aquire_all - counter*aquire_one)/1000)) + " секунд";
+	    }
+		</script>
+	</head>
+ <body>
+ 	<div class="container">
+ 		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Параметр</th>
+		      <th scope="col">Значение</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">Пульс</th>
+		      <td><span id='pulse'></span></td>
+		    </tr>
+		    <tr>
+		      <th scope="row">Давление:</th>
+		      <td><span id='pressure_up'></span>/<span id='pressure_dn'></span></td>
+		    </tr>
+		  </tbody>
+		</table>
+		<div class="row">
+	        <div>
+	            <h4>Рекомендации</h4>h4>
+	            <p>У вас пониженный пульс. Обратитесь к врачу</p>
+	        </div>
+	    </div>
+		<div id="ex1"></div>
+	</div>
+ </body>
+</html>
+
